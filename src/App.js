@@ -17,19 +17,34 @@ function App() {
   contacts and appointments
   */
 
-  const changeAppoint = (value) => {
-
+  const changeAppoint = (appoint) => {
+    setAppointment(prev => {
+      return [
+        ...prev,
+        {name: appoint.name,
+        contact: appoint.contact,
+        date: appoint.date,
+        time: appoint.time}
+      ]
+    })
   };
 
-  const changeContact = (value) => {
-
+  const changeContact = (contactProp) => {
+    setContact(prev => {
+      return [
+        ...prev,
+        {name: contactProp.name,
+        contact: contactProp.phone,
+        date: contactProp.email}
+      ]
+    })
   };
 
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={ <Root/> }>
       <Route index element={ <Navigate to={ROUTES.CONTACTS} replace/> }/>
-      <Route path={ROUTES.CONTACTS} element={ <ContactsPage /> /* Add props to ContactsPage */ }/>
-      <Route path={ROUTES.APPOINTMENTS} element={ <AppointmentsPage /> /* Add props to AppointmentsPage */ }/>
+      <Route path={ROUTES.CONTACTS} element={ <ContactsPage contact={contact} changeContact={changeContact} /> /* Add props to ContactsPage */ } />
+      <Route path={ROUTES.APPOINTMENTS} element={ <AppointmentsPage appointment={appointment} changeAppoint={changeAppoint} /> /* Add props to AppointmentsPage */ }/>
     </Route>
   ));
   
