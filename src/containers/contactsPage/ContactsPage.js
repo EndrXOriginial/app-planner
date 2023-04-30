@@ -13,6 +13,11 @@ export const ContactsPage = (props) => {
   const [email, setEmail] = useState('');
   const [double, setDouble] = useState(false);
 
+  for (let i = 0; i < props.contacts.length; i++) {
+    console.log(props.contacts[i].name);
+    console.log(name);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     /*
@@ -37,28 +42,27 @@ export const ContactsPage = (props) => {
 
   // Checks if the name already exists in the contact array sent through props
   useEffect(() => {
-    setDouble(props.contacts.every(contact => 
-      name !== contact.name
-    ));
+    let isDoubled = props.contacts.every(contact => 
+      name == contact.name
+    );
+    setDouble(isDoubled);
+    console.log(double);
   }, [name]);
 
-  console.log(double);
 
   const handleNameChange = (e) => {
     let nameValue = e.target.value;
-    console.log(nameValue);
     setName(nameValue);
+    
   }
 
   const handlePhoneChange = (e) => {
     let phoneValue = e.target.value;
-    console.log(phoneValue);
     setPhone(phoneValue);
   }
 
   const handleEmailChange = (e) => {
     let emailValue = e.target.value;
-    console.log(emailValue);
     setEmail(emailValue);
   }
 
