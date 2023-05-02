@@ -11,44 +11,30 @@ export const ContactsPage = (props) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [double, setDouble] = useState(false);
+  const [notDouble, setDouble] = useState(false);
 
-  for (let i = 0; i < props.contacts.length; i++) {
-    console.log(props.contacts[i].name);
-    console.log(name);
-  }
-
+  //Handles the submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
-    /*
-    Add contact info and clear data
-    if the contact name is not a duplicate
-    */
 
-    if (!double) {
+    if (notDouble) {
       props.changeContacts(name, phone, email);
       setName('');
       setPhone('');
       setEmail('');
-    } else if (double) {
+      console.log('it worked');
+    } else if (!notDouble) {
       alert(`${name} already exists in the contact list`);
     }
   };
 
-  /*
-  Using hooks, check for contact name in the 
-  contacts array variable in props
-  */
+  const checkDouble = contactName => contactName.name !== name;
 
   // Checks if the name already exists in the contact array sent through props
   useEffect(() => {
-    let isDoubled = props.contacts.every(contact => 
-      name == contact.name
-    );
+    let isDoubled = props.contacts.every(checkDouble);
     setDouble(isDoubled);
-    console.log(double);
   }, [name]);
-
 
   const handleNameChange = (e) => {
     let nameValue = e.target.value;
